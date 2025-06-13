@@ -8,13 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                echo "📥 Cloning the GitHub repo..."
-                git 'https://github.com/Kiranrakh/LW-Project-04-Automate-Docker-Image-Creation---Deployment-using-Jenkins-Pipeline.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 echo "🐳 Building Docker image..."
