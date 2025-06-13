@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "myapp"
-        REGISTRY = "localhost:5000"
-        TAG = "v1"
+        IMAGE_NAME = "myapp"              // Docker image name
+        REGISTRY = "localhost:5000"       // Local registry
+        TAG = "v1"                        // Version tag
     }
 
     stages {
