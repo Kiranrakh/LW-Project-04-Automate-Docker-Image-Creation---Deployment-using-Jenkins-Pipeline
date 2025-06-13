@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "myapp"              // Docker image name
-        REGISTRY = "localhost:5000"       // Local registry
-        TAG = "v1"                        // Version tag
+        IMAGE_NAME = "myapp"
+        REGISTRY = "localhost:5000"
+        TAG = "v1"
     }
 
     stages {
@@ -21,14 +21,24 @@ pipeline {
                 sh "docker push ${REGISTRY}/${IMAGE_NAME}:${TAG}"
             }
         }
+
+        stage('Run Docker Container') {
+            steps {
+                echo "🚀 Running Docker container..."
+                sh """
+                   docker rm -f myapp-container || true
+                   docker run -d -p 8081:80 --name myapp-container ${REGISTRY}/${IMAGE_NAME}:${TAG}
+                """
+            }
+        }
     }
 
     post {
         success {
-            echo "✅ Build and push successful!"
+            echo "✅ Pipeline completed successfully!"
         }
         failure {
-            echo "❌ Build or push failed. Check logs."
+            echo "❌ Pipeline failed. Check logs."
         }
     }
 }
